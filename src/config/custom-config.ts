@@ -1,22 +1,21 @@
 import fs from 'fs-extra';
-import { get_default_config } from './default-config';
-import { merge } from 'lodash';
 
-const get_custom_config = async (filename?: string) => {
+export const get_custom_config = async (filename?: string) => {
     const file: string = filename || './proxy.config.js';
-
     let custom_module = {};
-    const default_module = get_default_config();
 
-    if (/\.js$/.test(file)) {
-        custom_module = await require(file);
-    } else if (/\.json$/.test(file)) {
-        custom_module = await fs.readJSON(file);
-    } else {
-        return default_module;
+    try {
+        if (/\.js$/.test(file)) {
+            custom_module = await require(file);
+        } else if (/\.json$/.test(file)) {
+            custom_module = await fs.readJSON(file);
+        } else {
+            const error: string = `${ filename } is not a valid config file, use default options instead`;
+            throw new Error(error);
+        }
+        
+        return custom_module;
+    } catch (e) {
+        throw new Error(e);
     }
-
-    const config = merge(default_module, custom_module);
-
-    return config;
 }

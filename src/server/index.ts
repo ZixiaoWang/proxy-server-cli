@@ -33,20 +33,20 @@ const get_available_port = (port: number): Promise<number> => {
 }
 
 
-export const start_server = async (option?: ProxyServerCli.ServerOption | proxy.Config) => {
-    const default_port: number = get(option, 'port') || 8080;
+export const start_server = async (options?: ProxyServerCli.ServerOption | proxy.Config) => {
+    const default_port: number = get(options, 'port') || 8080;
     const port: number = await get_available_port(default_port);
     const app: Express = express();
 
     app.use(cors());
 
-    if (get(option, 'target')) {
-        const proxyMiddleWare = proxy(option as proxy.Config);
+    if (get(options, 'target')) {
+        const proxyMiddleWare = proxy(options as proxy.Config);
         app.use(proxyMiddleWare);
     }
 
     app.listen(port, () => {
-        const message: string = `Server is listening to ${ port }`
+        const message: string = `Server is listening to ${ port.toString() }`
         Logger.showLog(colors.green(message))
     })
 }

@@ -16,7 +16,8 @@
     "express": "^4.17.1",
     "fs-extra": "^8.1.0",
     "http-proxy-middleware": "^0.20.0",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "net": "^1.0.2"
   },
   "devDependencies": {
     "@types/colors": "^1.2.1",

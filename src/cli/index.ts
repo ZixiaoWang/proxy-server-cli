@@ -11,10 +11,12 @@ export class Program {
         this.setPort();
         this.setTarget();
         this.setConfigFilePath();
+        
+        this.start();
     }
 
     start(callback?: () => void): void {
-        program.parse(process.argv);
+        this.program.parse(process.argv);
         if (callback && typeof callback === 'function') {
             callback();
         }
@@ -26,7 +28,7 @@ export class Program {
 
     private setPort = () => {
         this.program
-            .requiredOption('-p, --port <port>', `set port to proxy server, default is ${ colors.green('8080') }`)
+            .option('-p, --port <serverPort>', `set port to proxy server, default is ${ colors.green('8080') }`)
             .action(cmd => set(this.options, 'port', parseInt(cmd.port) || 8080));
     }
 

@@ -12,12 +12,17 @@ export class Program {
         this.setPort();
         this.setTarget();
         this.setConfigFilePath();
-
-        this.start();
     }
 
     async start(): Promise<boolean> {
         this.program.parse(process.argv);
+
+        if (process.argv.length === 2) {
+            this.program.outputHelp();
+            console.log('\n');
+            return false;
+        }
+
         return true;
     }
 
@@ -40,7 +45,7 @@ export class Program {
 
     private setTarget = () => {
         this.program
-            .requiredOption('-t, --target <url>', `set target to proxy server, target is required`)
+            .option('-t, --target <url>', `set target to proxy server, target is required`)
             .action(cmd => set(this.options, 'target', cmd.target));
     }
 

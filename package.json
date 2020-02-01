@@ -10,10 +10,12 @@
     "proxy-server": "index.js"
   },
   "dependencies": {
+    "@types/webpack": "^4.41.3",
     "colors": "^1.4.0",
     "commander": "^4.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "figlet": "^1.2.4",
     "fs-extra": "^8.1.0",
     "http-proxy-middleware": "^0.20.0",
     "lodash": "^4.17.15",
@@ -24,6 +26,7 @@
     "@types/commander": "^2.12.2",
     "@types/cors": "^2.8.6",
     "@types/express": "^4.17.2",
+    "@types/figlet": "^1.2.0",
     "@types/fs-extra": "^8.0.1",
     "@types/http-proxy-middleware": "^0.19.3",
     "@types/lodash": "^4.14.149",

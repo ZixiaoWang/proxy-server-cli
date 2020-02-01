@@ -6,3 +6,5 @@ export const Logger = {
     showInfo, 
     showLog
 }
+
+export * from './banner';

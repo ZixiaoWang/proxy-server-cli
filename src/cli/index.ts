@@ -1,7 +1,8 @@
 import program, { CommanderStatic } from 'commander';
 import colors from 'colors';
-import { set } from 'lodash';
+import { set, assign } from 'lodash';
 import { ProxyServerCli } from '../interface';
+import { get_config } from '../config';
 
 export class Program {
     public program: CommanderStatic = program;
@@ -11,19 +12,24 @@ export class Program {
         this.setPort();
         this.setTarget();
         this.setConfigFilePath();
-        
+
         this.start();
     }
 
-    start(callback?: () => void): void {
+    async start(): Promise<boolean> {
         this.program.parse(process.argv);
-        if (callback && typeof callback === 'function') {
-            callback();
-        }
+        return true;
     }
 
-    getOptions(): ProxyServerCli.ServerOption {
-        return this.options;
+    async getOptions(): Promise<ProxyServerCli.ServerOption> {
+        try {
+            const preset_options: ProxyServerCli.ServerOption = await get_config(this.options.config);
+            const cli_options: ProxyServerCli.ServerOption = this.options;
+
+            return assign(preset_options, cli_options);
+        } catch (e) {
+            throw new Error(e);
+        }
     }
 
     private setPort = () => {
@@ -34,7 +40,7 @@ export class Program {
 
     private setTarget = () => {
         this.program
-            .requiredOption('-t, --target <url>', `set target to proxy server ${ colors.red('required') }`)
+            .requiredOption('-t, --target <url>', `set target to proxy server, target is required`)
             .action(cmd => set(this.options, 'target', cmd.target));
     }
 

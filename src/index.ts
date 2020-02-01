@@ -1,11 +1,13 @@
-import { assign } from 'lodash';
+#!/usr/bin/env node
+
 import { start_server } from './server';
 import { Program } from './cli';
-import { get_default_config } from './config';
+import { ProxyServerCli } from './interface';
 
-const program: Program = new Program();
-const programOptions = program.getOptions();
-const options = assign(get_default_config(), programOptions);
-
-program.start();
-start_server(options);
+(async () => {
+    const program: Program = new Program();
+    const options: ProxyServerCli.ServerOption = await program.getOptions();
+    
+    await program.start();
+    start_server(options);
+})()

@@ -12,6 +12,7 @@ export class Program {
         this.setPort();
         this.setTarget();
         this.setConfigFilePath();
+        this.setPathMatch();
     }
 
     async start(): Promise<boolean> {
@@ -51,7 +52,18 @@ export class Program {
 
     private setConfigFilePath = () => {
         this.program
-            .option('-c, --config ', `set config file path, proxy is disabled by default`)
+            .option('-c, --config', `set config file path, proxy is disabled by default`)
             .action(cmd => set(this.options, 'config', cmd.config));
+    }
+
+    private setPathMatch = () => {
+        this.program
+            .option(
+                '-P, --path-match <paths>', 
+                'specify path(s) to proxy, otherwise the request will be sent without proxy.\n' +
+                'If there are multiple paths, use "," to separate the path.\n' +
+                `e.g. ${ colors.cyan('$ proxy-server --path-match "/path1,/path2" --target "https://mydomain.com"') }`
+            )
+            .action(cmd => set(this.options, 'pathMatch', cmd.pathMatch));
     }
 }

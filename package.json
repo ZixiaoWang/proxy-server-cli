@@ -39,7 +39,7 @@
   "scripts": {
     "build": "yarn webpack",
     "link": "yarn link proxy-server",
-    "build-link": "yarn webpack && yarn link proxy-server",
-    "start": "yarn webpack && yarn link proxy-server && node index.js"
+    "start": "yarn webpack && yarn link proxy-server && node index.js",
+    "build-link": "yarn webpack && yarn link proxy-server"
   }
 }

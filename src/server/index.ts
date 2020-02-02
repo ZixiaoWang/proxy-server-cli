@@ -41,7 +41,8 @@ export const start_server = async (options?: ProxyServerCli.ServerOption | proxy
     app.use(cors());
 
     if (get(options, 'target')) {
-        const proxyMiddleWare = proxy(options as proxy.Config);
+        const proxyPathsMatch: string = get(options, 'pathMatch', '/').split(/,\s?/).filter((path: string) => !!path);
+        const proxyMiddleWare = proxy(proxyPathsMatch, options as proxy.Config);
         app.use(proxyMiddleWare);
     }
 

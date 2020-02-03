@@ -2,6 +2,7 @@
 This is a cli wrapper for a express based proxy server, the middle ware is using [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware). It means to quickly setup a usable proxy server through one line command.
 
 ### Quick usage
+Start a proxy server with port`3000`, and proxy the requests include `/api/**` and `/login` to `https://my-domain.com`.
 ```bash
     proxy-server \
         --target "https://my-domain.com" \
@@ -9,6 +10,7 @@ This is a cli wrapper for a express based proxy server, the middle ware is using
         --path-match "/api/**, /login"
 ```
 
+----  
 ### Installation
 ```bash
     git clone https://github.com/ZixiaoWang/proxy-server-cli.git
@@ -18,6 +20,7 @@ This is a cli wrapper for a express based proxy server, the middle ware is using
 ```
 If you'd like to install it as a global command, you may use `yarn link`. 
 
+----
 ### License
 Copyright 2020 ZixiaoWang
 

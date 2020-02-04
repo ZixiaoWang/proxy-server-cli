@@ -8,6 +8,7 @@ const show = async (text: string, fonts: Fonts = 'Basic'): Promise<string> => {
                 reject(err);
             }
             
+            console.log('\n');
             console.log(colors.green(text || '-_-'));
             resolve(text);
         })

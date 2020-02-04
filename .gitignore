@@ -1,2 +1,5 @@
 // Node Dependencies
 node_modules
+
+// local temp fold
+__temp

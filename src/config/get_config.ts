@@ -12,7 +12,7 @@ export const get_config = async (filename?: string) => {
         }
 
         return get_default_config();
-    } catch (e) {
-        throw new Error(e);
+    } catch (error) {
+        throw error;
     }
 }

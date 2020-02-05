@@ -60,8 +60,13 @@ export class Program {
 
             const preset_options: ProxyServerCli.ServerOption = await get_config(config_file_path);
             const cli_options: ProxyServerCli.ServerOption = this.options;
+            const options: ProxyServerCli.ServerOption = assign(preset_options, cli_options);
 
-            return assign(preset_options, cli_options);
+            if (isNaN(options.port as any) === true) {
+                options.port = 8080;
+            }
+
+            return options;
         } catch (error) {
             throw error;
         }
@@ -79,8 +84,12 @@ export class Program {
 
     private setPort = () => {
         this.program
-            .option('-p, --port <serverPort>', `set port to proxy server, default is ${ colors.green('8080') }`)
-            .action(cmd => set(this.options, 'port', parseInt(cmd.port) || 8080));
+            .option('-p, --port [serverPort]', `set port to proxy server, default is ${ colors.green('8080') }`)
+            .action(cmd => {
+                if (cmd.port && /\d+/.test(cmd.port)) {
+                    set(this.options, 'port', parseInt(cmd.port));
+                }
+            });
     }
 
     private setTarget = () => {
@@ -91,7 +100,7 @@ export class Program {
 
     private setConfigFilePath = () => {
         this.program
-            .option('-c, --config [filepath]', `set config file path, proxy is disabled by default`)
+            .option('-c, --config [filepath]', `set config file path, ${ colors.green('./proxy.config.js') } will be used by default`)
             .action(cmd => set(this.options, 'config', cmd.config));
     }
 
@@ -100,7 +109,7 @@ export class Program {
             .option(
                 '-P, --path-match <paths>', 
                 'specify path(s) to proxy, otherwise the request will be sent without proxy.\n' +
-                'If there are multiple paths, use "," to separate the path.\n' +
+                'if there are multiple paths, use "," to separate the path.\n' +
                 `e.g. ${ colors.cyan('$ proxy-server --path-match "/path1,/path2" --target "https://mydomain.com"') }`
             )
             .action(cmd => set(this.options, 'pathMatch', cmd.pathMatch));

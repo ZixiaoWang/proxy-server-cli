@@ -2,12 +2,12 @@
   "name": "proxy-server",
   "version": "1.0.0",
   "description": "A proxy server cli",
-  "main": "index.js",
+  "main": "dist/index.js",
   "author": "Jacky Wang",
   "license": "MIT",
   "private": false,
   "bin": {
-    "proxy-server": "index.js"
+    "proxy-server": "dist/index.js"
   },
   "dependencies": {
     "@types/webpack": "^4.41.3",
@@ -32,17 +32,12 @@
     "@types/lodash": "^4.14.149",
     "axios": "^0.19.2",
     "faker": "^4.1.0",
-    "ts-loader": "^6.2.1",
-    "typescript": "^3.7.5",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10",
-    "webpack-node-externals": "^1.7.2"
+    "typescript": "^3.7.5"
   },
   "scripts": {
-    "build": "yarn webpack",
+    "build": "tsc",
     "link": "yarn link proxy-server",
-    "start": "yarn webpack && yarn link proxy-server && node index.js",
-    "build-link": "yarn webpack && yarn link proxy-server",
-    "dev-link": "yarn webpack  -d && yarn link proxy-server"
+    "start": "tsc && yarn link proxy-server && node index.js",
+    "build-link": "tsc && yarn link proxy-server"
   }
 }

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { start_server } from './server';
 import { Program } from './cli';
 import { ProxyServerCli } from './interface';

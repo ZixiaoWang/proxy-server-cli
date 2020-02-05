@@ -17,7 +17,8 @@ module.exports = {
     target: 'node',
 
     node: {
-        __dirname: 'mock'
+        __filename: false,
+        __dirname: false
     },
 
     module: {

@@ -8,7 +8,7 @@ export const get_custom_config = async (filename?: string) => {
 
     try {
         if (/\.js$/.test(file)) {
-            custom_module = await require(filepath);
+            custom_module = await import(filepath);
         } else if (/\.json$/.test(file)) {
             custom_module = await fs.readJSON(filepath);
         } else {

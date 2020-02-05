@@ -1,7 +1,7 @@
 import express, { Express } from 'express';
 import proxy from 'http-proxy-middleware';
 import cors from 'cors';
-import net from 'net';
+import net, { Server } from 'net';
 import colors from 'colors';
 import { get } from 'lodash';
 
@@ -33,7 +33,7 @@ const get_available_port = (port: number): Promise<number> => {
 }
 
 
-export const start_server = async (options?: ProxyServerCli.ServerOption | proxy.Config) => {
+export const start_server = async (options?: ProxyServerCli.ServerOption | proxy.Config): Promise<Server> => {
     const default_port: number = get(options, 'port') || 8080;
     const port: number = await get_available_port(default_port);
     const app: Express = express();
@@ -46,8 +46,14 @@ export const start_server = async (options?: ProxyServerCli.ServerOption | proxy
         app.use(proxyMiddleWare);
     }
 
-    app.listen(port, () => {
-        const message: string = `Server is listening to ${ port.toString() }`
-        Logger.showLog(colors.green(message))
-    })
+    return new Promise((resolve, reject) => {
+        const server: Server = app.listen(port, (err) => {
+            if (err) {
+                reject(err);
+            }
+            const message: string = `Server is listening to ${ port.toString() }`
+            Logger.showLog(colors.green(message));
+            resolve(server);
+        });
+    });
 }

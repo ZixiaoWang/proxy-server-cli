@@ -85,11 +85,16 @@ exports.start_server = function (options) { return __awaiter(void 0, void 0, voi
                     proxyMiddleWare = http_proxy_middleware_1.default(proxyPathsMatch, options);
                     app.use(proxyMiddleWare);
                 }
-                app.listen(port, function () {
-                    var message = "Server is listening to " + port.toString();
-                    logger_1.Logger.showLog(colors_1.default.green(message));
-                });
-                return [2 /*return*/];
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        var server = app.listen(port, function (err) {
+                            if (err) {
+                                reject(err);
+                            }
+                            var message = "Server is listening to " + port.toString();
+                            logger_1.Logger.showLog(colors_1.default.green(message));
+                            resolve(server);
+                        });
+                    })];
         }
     });
 }); };

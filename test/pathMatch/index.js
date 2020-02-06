@@ -13,7 +13,7 @@ const randomArray = (minNumber = 10) => {
 }
 
 const randomPath = () => {
-    const random_num = Math.floor( Math.random() * 5 + 3 );
+    const random_num = Math.floor( Math.random() * 3 + 1 );
     const random_paths = new Array(random_num).fill(0).map(i => `/${ faker.lorem.word() }`);
     return random_paths.join('');
 }
@@ -29,14 +29,14 @@ const randomObject = () => {
 
 
 // Cases
-const proxy_requests = randomArray(20).map(i => ({ _id: faker.random.number(), uuid: faker.random.uuid(), path: randomPath(), params: randomObject() }));
+const proxy_requests = randomArray(10).map(i => ({ _id: faker.random.number(), uuid: faker.random.uuid(), path: randomPath(), params: randomObject() }));
 const normal_requests = randomArray(50).map(i => ({ _id: faker.random.number(), uuid: faker.random.uuid(), path: randomPath(), params: randomObject() }));
 const paths_match = proxy_requests.map(obj => obj.path);
 const paths_match_set = new Set(paths_match);
 const requests = proxy_requests.concat(normal_requests).sort((pre, next) => pre._id - next._id);
 const received_path = [];
 
-app.use((req, res) => {
+app.all("*", (req, res) => {
     const path = req.path;
     received_path.push(path);
     if (paths_match_set.has(path)) {
@@ -54,7 +54,10 @@ const test_server = app.listen(9999, async () => {
         changeOrigin: true,
         port: 7025,
         target: 'http://localhost:9999',
-        pathMatch: paths_match.join(', ')
+        pathMatch: paths_match.join(', '),
+        onError: (err) => {
+            console.log(err)
+        }
     }
     const proxy_server = await proxy.start_server(options);
     

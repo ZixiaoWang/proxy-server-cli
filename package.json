@@ -1,5 +1,5 @@
 {
-  "name": "proxy-server",
+  "name": "start-proxy-server",
   "version": "1.0.0",
   "description": "A proxy server cli",
   "main": "dist/index.js",

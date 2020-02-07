@@ -1,4 +1,7 @@
 # Proxy Server CLI
+
+[![license - MIT](https://img.shields.io/npm/l/http-proxy-cli.svg)](http://foss-haas.mit-license.org)
+
 This is a cli wrapper for a express based proxy server, the middle ware is using [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware). It means to quickly setup a usable proxy server through one line command.
 
 ### Quick usage
@@ -20,6 +23,13 @@ Start a proxy server with port`3000`, and proxy the requests include `/api/**` a
 
 ----  
 ### Installation
+**From NPM**  
+```
+    npm install -g start-proxy-server
+```
+<br/>
+
+**From source**
 ```bash
     git clone https://github.com/ZixiaoWang/proxy-server-cli.git
     yarn install

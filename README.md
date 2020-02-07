@@ -5,6 +5,7 @@ This is a cli wrapper for a express based proxy server, the middle ware is using
 Start a proxy server with port`3000`, and proxy the requests include `/api/**` and `/login` to `https://my-domain.com`.
 ```bash
     proxy-server \
+        --config "./proxy.config.js" \
         --target "https://my-domain.com" \
         --port 3000 \
         --path-match "/api/**, /login"
@@ -19,6 +20,35 @@ Start a proxy server with port`3000`, and proxy the requests include `/api/**` a
     node index.js --target <target> --port <port>
 ```
 If you'd like to install it as a global command, you may use `yarn link`. 
+
+
+---
+### CLI options
+The command line supports a few options as the shortcut of proxy options.   
+Use `proxy-server --help` to review the all the feasible commands.
+```
+Options:
+  -p, --port [serverPort]   set port to proxy server, default is 8080
+  -t, --target <url>        set target to proxy server, target is required
+  -c, --config [filepath]   set config file path, ./proxy.config.js
+                            will be used by default
+  -P, --path-match <paths>  specify path(s) to proxy, otherwise the request
+                            will be sent without proxy.
+                            if there are multiple paths, use "," to separate
+                            the path.
+                            e.g. $ proxy-server --path-match
+                            "/path1,/path2" --target
+                            "https://mydomain.com"
+  -i, --init                initailize the config file
+  -h, --help                output usage information
+```
+
+---
+### Config file options
+Custom config file is supported, all [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware#http-proxy-middleware-options) options can be used, along with some extra `proxy-server` options as following:  
+- **options.port**: specify the port for proxy-server, if the specified port is occupied, it will attempt to use any available ports next to that.
+- **options.pathMatch**: specify which request's path to be proxied. It can be multiple paths separated by comma, or wildcard paths. Please refer to [Context Matching](https://github.com/chimurai/http-proxy-middleware#context-matching) for further information.
+- **options.config**: specify the custom file's path. Both `*.json` and `*.js` are valid, `*.js` must export a valid module. Use `proxy-server --init` to create a configuration template file. 
 
 ----
 ### License

@@ -110,7 +110,7 @@ export class Program {
                 '-P, --path-match <paths>', 
                 'specify path(s) to proxy, otherwise the request will be sent without proxy.\n' +
                 'if there are multiple paths, use "," to separate the path.\n' +
-                `e.g. ${ colors.cyan('$ proxy-server --path-match "/path1,/path2" --target "https://mydomain.com"') }`
+                `e.g. ${ colors.cyan('$ start-proxy-server --path-match "/path1,/path2" --target "https://mydomain.com"') }`
             )
             .action(cmd => set(this.options, 'pathMatch', cmd.pathMatch));
     }

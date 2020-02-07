@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": false,
   "bin": {
-    "proxy-server": "dist/index.js"
+    "start-proxy-server": "dist/index.js"
   },
   "dependencies": {
     "@types/webpack": "^4.41.3",

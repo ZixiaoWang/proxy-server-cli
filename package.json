@@ -36,8 +36,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "link": "yarn link proxy-server",
-    "start": "tsc && yarn link proxy-server && node index.js",
-    "build-link": "tsc && yarn link proxy-server"
+    "link": "yarn link start-proxy-server",
+    "start": "tsc && yarn link start-proxy-server && node index.js",
+    "build-link": "tsc && yarn link start-proxy-server"
   }
 }

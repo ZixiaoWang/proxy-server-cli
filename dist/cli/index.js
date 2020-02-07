@@ -82,7 +82,7 @@ var Program = /** @class */ (function () {
             _this.program
                 .option('-P, --path-match <paths>', 'specify path(s) to proxy, otherwise the request will be sent without proxy.\n' +
                 'if there are multiple paths, use "," to separate the path.\n' +
-                ("e.g. " + colors_1.default.cyan('$ proxy-server --path-match "/path1,/path2" --target "https://mydomain.com"')))
+                ("e.g. " + colors_1.default.cyan('$ start-proxy-server --path-match "/path1,/path2" --target "https://mydomain.com"')))
                 .action(function (cmd) { return lodash_1.set(_this.options, 'pathMatch', cmd.pathMatch); });
         };
         this.setPort();

@@ -2,7 +2,14 @@
 This is a cli wrapper for a express based proxy server, the middle ware is using [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware). It means to quickly setup a usable proxy server through one line command.
 
 ### Quick usage
-Start a proxy server with port`3000`, and proxy the requests include `/api/**` and `/login` to `https://my-domain.com`.
+Start a proxy server with port`3000`, and proxy the requests include `/api/**` and `/login` to `https://my-domain.com`.  
+<br>
+**create preset config file**
+```bash
+    proxy-server --init
+```  
+  
+**start the proxy server**
 ```bash
     proxy-server \
         --config "./proxy.config.js" \
@@ -49,6 +56,10 @@ Custom config file is supported, all [http-proxy-middleware](https://github.com/
 - **options.port**: specify the port for proxy-server, if the specified port is occupied, it will attempt to use any available ports next to that.
 - **options.pathMatch**: specify which request's path to be proxied. It can be multiple paths separated by comma, or wildcard paths. Please refer to [Context Matching](https://github.com/chimurai/http-proxy-middleware#context-matching) for further information.
 - **options.config**: specify the custom file's path. Both `*.json` and `*.js` are valid, `*.js` must export a valid module. Use `proxy-server --init` to create a configuration template file. 
+
+---
+### Known issue
+**permission denied**: some will met `permission denied` exception after running `yarn link`, you may use `sudo chmod +x you/path/to/bin` to grand access. 
 
 ----
 ### License

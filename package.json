@@ -1,6 +1,6 @@
 {
   "name": "start-proxy-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A proxy server cli",
   "main": "dist/index.js",
   "author": "Jacky Wang",
